@@ -18,6 +18,7 @@ const urlSchema = new Schema(
     visitedCount: {
       type: Number,
       required: true,
+      default: 0,
     },
   },
   {
