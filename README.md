@@ -48,6 +48,8 @@ yarn test
 
 This backend api is hosted at https://shutly.herokuapp.com/ on Heroku servers.
 
+Note: Heroku servers go idle after some time of inactvity, so you'd likely notice a delay when accessing the URL the first time.
+
 ## Other notes
 
 This task was built using the good ol' Typescript, NodeJS, ExpressJS and Mongodb(NoSQL) database.
