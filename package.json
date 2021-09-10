@@ -11,6 +11,7 @@
     "dev": "nodemon index.ts",
     "start": "node dist/index.js",
     "build": "tsc",
+    "start:server": "yarn build && cp .env dist/ && yarn start",
     "db": "docker-compose -f docker-compose-db.yml up",
     "container": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up"
   },

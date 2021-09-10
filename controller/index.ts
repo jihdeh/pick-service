@@ -67,7 +67,9 @@ export const redirectRequest = catchAsync(
 
 export const getFrequentlyAccessedUrls = catchAsync(
   async (_: express.Request, res: express.Response) => {
-    const getMostVisited = await Url.find({}).sort({ visitedCount: -1 }).limit(100);
+    const getMostVisited = await Url.find({ visitedCount: { $gt: 0 } })
+      .sort({ visitedCount: -1 })
+      .limit(100);
     res.send(getMostVisited);
   }
 );

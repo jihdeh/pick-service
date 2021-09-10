@@ -9,7 +9,7 @@ describe('POST /api/url', () => {
   test('should return 200 and generate short url', async () => {
     const inputUrl = 'https://google.com';
     const res = await request(app)
-      .post(`/api/url`)
+      .post('/api/url')
       .send({
         url: inputUrl,
       })

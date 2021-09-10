@@ -1,6 +1,6 @@
 version: '3'
 services:
-  errandlr-api:
+  pickfu-api:
     build: .
     volumes:
       - .:/app
@@ -12,21 +12,10 @@ services:
       - .env
     depends_on:
       - mongo
-      - redis
-    command: sh -c "/wait && yarn dev"
+    command: sh -c "/wait && yarn build && yarn start"
   mongo:
     image: mongo
     volumes:
       - ./data:/data/db
     ports:
       - '27017:27017'
-  redis:
-    image: redis:latest
-    ports:
-      - 6379:6379
-    volumes:
-      - ./config/redis.conf:/redis.conf
-    command: [ "redis-server", "/redis.conf" ]
-#Refs
-# https://github.com/docker/compose/issues/2033
-# https://stackoverflow.com/questions/26522789/how-to-run-sh-on-windows-command-prompt
