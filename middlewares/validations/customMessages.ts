@@ -1,7 +1,7 @@
 const customMessages = {
   url: {
     'string.empty': 'URL cannot be empty.',
-    'any.required': '"URL" is required.',
+    'any.required': 'URL is required.',
   },
 };
 

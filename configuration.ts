@@ -10,6 +10,7 @@ const envVarsSchema = Joi.object()
     PORT: Joi.number().default(3000),
     DEV_DATABASE_URL: Joi.string().required().description('Dev database url'),
     DATABASE_URL: Joi.string().required().description('database url'),
+    CLIENT_URL: Joi.string().required().description('client url'),
   })
   .unknown();
 
@@ -26,6 +27,7 @@ const envs = {
   port: envVars.PORT,
   devDatabaseUrl: envVars.DEV_DATABASE_URL,
   prodDatabaseUrl: envVars.DATABASE_URL,
+  clientUrl: envVars.CLIENT_URL,
 };
 
 export default envs;

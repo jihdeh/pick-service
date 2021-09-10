@@ -1,6 +1,7 @@
 import * as express from 'express';
 import httpStatus from 'http-status';
 import { customAlphabet } from 'nanoid';
+import config from '../configuration';
 import { Url } from '../database/model';
 import AppError from '../utils/AppError';
 import catchAsync from '../utils/catchAsync';
@@ -14,8 +15,12 @@ export const generateShortUrl = catchAsync(
     const shortId = nanoid();
     const baseUrl = `${req.protocol}://${req.get('host')}`;
 
+    // convert non protocol urls to have http protocol by default
+    const originalUrl =
+      req.body.url.indexOf('://') === -1 ? `http://${req.body.url}` : req.body.url;
+
     const updateUrlRecord = await Url.findOneAndUpdate(
-      { originalUrl: req.body.url },
+      { originalUrl },
       {
         shortId,
         baseUrl,
@@ -32,7 +37,7 @@ export const generateShortUrl = catchAsync(
 
     res.send({
       payload: {
-        originalUrl: req.body.url,
+        originalUrl,
         shortUrl: `${updateUrlRecord.baseUrl}/${shortId}`,
       },
     });
@@ -54,12 +59,15 @@ export const redirectRequest = catchAsync(
       if (findUrlByShortId) {
         return res.redirect(findUrlByShortId.originalUrl);
       }
-      // redirect to 404 route
-      throw new AppError(httpStatus.BAD_REQUEST, 'Invalid url');
     }
     // redirect to 404 route
-    throw new AppError(httpStatus.BAD_REQUEST, 'Invalid url');
+    return res.redirect(`${config.clientUrl}/404`);
   }
 );
 
-export const getFrequentlyAccessedUrls = () => {};
+export const getFrequentlyAccessedUrls = catchAsync(
+  async (_: express.Request, res: express.Response) => {
+    const getMostVisited = await Url.find({}).sort({ visitedCount: -1 }).limit(100);
+    res.send(getMostVisited);
+  }
+);
