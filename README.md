@@ -52,7 +52,7 @@ Note: Heroku servers go idle after some time of inactvity, so you'd likely notic
 
 ## Other notes
 
-This task was built using the good ol' Typescript, NodeJS, ExpressJS and Mongodb(NoSQL) database.
+This task was built using the good ol' Typescript, NodeJS, ExpressJS and Mongodb(NoSQL) database. My Ruby on Rails expertise is still rusty.
 
 The implementation only tackles the requirements of the task, with a little bit of extra technical stuff, like proper error handling, some testing etc.
 
